@@ -9,7 +9,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.ui.main.adapter.ViewPagerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+import dagger.android.support.DaggerAppCompatActivity;
+
+public class MainActivity extends DaggerAppCompatActivity {
 
     TabLayout mTabLayout;
     ViewPager mViewPager;

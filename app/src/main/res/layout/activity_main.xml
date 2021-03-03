@@ -22,19 +22,19 @@
             app:mt_navIconEnabled="true"
             android:layout_margin="8dp"
             android:elevation="3dp"
-            app:mt_placeholder="Dvt Weather"/>
+            app:mt_placeholder="Dvt Weather" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/purple_40"
+            android:background="@color/teal_primary"
             app:tabIndicatorColor="@color/white"
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/purple_95"/>
+            app:tabTextColor="@color/teal_dark"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
