@@ -1,12 +1,8 @@
 package com.tanya.dvtweatherapp.ui.main;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
-
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -30,20 +26,17 @@ public class MainActivity extends DaggerAppCompatActivity {
 
         viewPager.setUserInputEnabled(true);
         viewPager.setAdapter(createAdapter());
-        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                switch (position) {
-                    case 0:
-                        tab.setText("Today");
-                        break;
-                    case 1:
-                        tab.setText("5 Days");
-                        break;
-                    case 2:
-                        tab.setText("Places");
-                        break;
-                }
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+            switch (position) {
+                case 0:
+                    tab.setText("Today");
+                    break;
+                case 1:
+                    tab.setText("5 Days");
+                    break;
+                case 2:
+                    tab.setText("Places");
+                    break;
             }
         }).attach();
 

@@ -1,6 +1,7 @@
 package com.tanya.dvtweatherapp.di;
 
 import com.tanya.dvtweatherapp.di.main.MainFragmentBuilderModule;
+import com.tanya.dvtweatherapp.di.main.MainModule;
 import com.tanya.dvtweatherapp.di.main.MainViewModelsModule;
 import com.tanya.dvtweatherapp.ui.main.MainActivity;
 
@@ -17,6 +18,7 @@ public abstract class ActivityBuilderModule {
             modules = {
                     MainFragmentBuilderModule.class,
                     MainViewModelsModule.class,
+                    MainModule.class,
             }
     )
     abstract MainActivity contributeMainActivity();
