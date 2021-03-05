@@ -1,6 +1,7 @@
 package com.tanya.dvtweatherapp.di;
 
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * Contains all application level dependencies, these are essentially
