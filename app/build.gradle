@@ -58,7 +58,15 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-    testImplementation 'junit:junit:4.+'
+    /*RxJava*/
+    def rxjava_version = '2.2.9'
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+
+    /*Rx-Retrofit Call Adapter*/
+    def call_adapter_version = '2.9.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$call_adapter_version"
+
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

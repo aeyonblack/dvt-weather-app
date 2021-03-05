@@ -19,4 +19,9 @@ public class MainModule {
         return retrofit.create(WeatherApi.class);
     }
 
+    @Provides
+    static String provideSuccessMessage() {
+        return "Weather API is not null";
+    }
+
 }

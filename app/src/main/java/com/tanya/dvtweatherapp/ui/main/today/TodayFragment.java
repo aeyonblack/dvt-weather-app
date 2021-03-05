@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -37,13 +38,12 @@ public class TodayFragment extends DaggerFragment {
         return inflater.inflate(R.layout.fragment_today, container, false);
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(TodayViewModel.class);
+        viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
+        Toast.makeText(getActivity(), viewModel.getMessage(), Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(getActivity(), "onViewCreated: TodayFragment is working", Toast.LENGTH_SHORT).show();
     }
 }
