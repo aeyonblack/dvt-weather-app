@@ -4,29 +4,26 @@ import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
+import com.tanya.dvtweatherapp.models.CurrentWeather;
 import com.tanya.dvtweatherapp.network.WeatherApi;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class TodayViewModel extends ViewModel {
+
+    private static final String TAG = "TodayViewModel";
 
     private final WeatherApi weatherApi;
 
-    private final String msg;
 
     @Inject
-    public TodayViewModel(WeatherApi weatherApi, String msg) {
+    public TodayViewModel(WeatherApi weatherApi) {
         this.weatherApi = weatherApi;
-
-        if (this.weatherApi != null) {
-            this.msg = msg;
-        } else {
-            this.msg = "Weather API is null";
-        }
-    }
-
-    public String getMessage() {
-        return msg;
     }
 
 }

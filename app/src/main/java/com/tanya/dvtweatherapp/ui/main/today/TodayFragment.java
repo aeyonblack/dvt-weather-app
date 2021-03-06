@@ -43,7 +43,6 @@ public class TodayFragment extends DaggerFragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
-        Toast.makeText(getActivity(), viewModel.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 }
