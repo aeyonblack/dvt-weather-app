@@ -1,20 +1,35 @@
 package com.tanya.dvtweatherapp.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * A model for the current weather of a specified location
  */
 public class CurrentWeather {
 
+    @SerializedName("dt")
+    @Expose
     private long dt;
 
+    @SerializedName("cod")
+    @Expose
     private String cod;
 
+    @SerializedName("city")
+    @Expose
     private City city;
 
+    @SerializedName("coord")
+    @Expose
     private Coord coord;
 
+    @SerializedName("main")
+    @Expose
     private Main main;
 
+    @SerializedName("weather")
+    @Expose
     private Weather weather;
 
     public CurrentWeather() {

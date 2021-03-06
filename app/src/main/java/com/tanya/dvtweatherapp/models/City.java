@@ -1,15 +1,24 @@
 package com.tanya.dvtweatherapp.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Basic information about a weather location
  * e.g. City name, country, id, etc.
  */
 public class City {
 
+    @SerializedName("id")
+    @Expose
     private long id;
 
+    @SerializedName("name")
+    @Expose
     private String name;
 
+    @SerializedName("country")
+    @Expose
     private String country;
 
     public City() {

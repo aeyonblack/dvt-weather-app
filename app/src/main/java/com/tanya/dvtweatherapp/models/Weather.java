@@ -1,16 +1,27 @@
 package com.tanya.dvtweatherapp.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * A model for the detailed description of a location's weather
  */
 public class Weather {
 
+    @SerializedName("id")
+    @Expose
     private long id;
 
+    @SerializedName("main")
+    @Expose
     private String main;
 
+    @SerializedName("description")
+    @Expose
     private String description;
 
+    @SerializedName("icon")
+    @Expose
     private String icon;
 
     public Weather() {

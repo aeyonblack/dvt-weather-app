@@ -1,24 +1,30 @@
 package com.tanya.dvtweatherapp.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Main Weather Information, e.g Temperature
  */
 public class Main {
 
+    @SerializedName("temp")
+    @Expose
     private double temp;
 
-    private double feelsLike;
-
+    @SerializedName("pressure")
+    @Expose
     private long pressure;
 
+    @SerializedName("humidity")
+    @Expose
     private long humidity;
 
     public Main() {
     }
 
-    public Main(double temp, double feelsLike, long pressure, long humidity) {
+    public Main(double temp, long pressure, long humidity) {
         this.temp = temp;
-        this.feelsLike = feelsLike;
         this.pressure = pressure;
         this.humidity = humidity;
     }
@@ -29,14 +35,6 @@ public class Main {
 
     public void setTemp(double temp) {
         this.temp = temp;
-    }
-
-    public double getFeelsLike() {
-        return feelsLike;
-    }
-
-    public void setFeelsLike(double feelsLike) {
-        this.feelsLike = feelsLike;
     }
 
     public long getPressure() {
