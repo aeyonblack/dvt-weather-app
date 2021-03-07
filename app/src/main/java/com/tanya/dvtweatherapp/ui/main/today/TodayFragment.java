@@ -1,19 +1,15 @@
 package com.tanya.dvtweatherapp.ui.main.today;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
@@ -22,14 +18,12 @@ import javax.inject.Inject;
 
 import dagger.android.support.DaggerFragment;
 
-public class TodayFragment extends DaggerFragment {
+public class TodayFragment extends DaggerFragment implements View.OnClickListener {
 
-    private static final String TAG = "TodayFragment";
+    private TodayViewModel viewModel;
 
     @Inject
     ViewModelProviderFactory providerFactory;
-
-    private TodayViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +36,26 @@ public class TodayFragment extends DaggerFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        view.findViewById(R.id.test_search_button).setOnClickListener(this);
+
         viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
+
+        subscribeObservers();
+
+    }
+
+    private void subscribeObservers() {
+        viewModel.observeCurrentWeather().observe(getViewLifecycleOwner(), currentWeather -> {
+            if (currentWeather != null) {
+                Toast.makeText(getActivity(), "City Name: " + currentWeather.getCity().getName(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+    @Override
+    public void onClick(View view) {
 
     }
 }

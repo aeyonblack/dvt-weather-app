@@ -13,9 +13,9 @@ import retrofit2.http.Query;
  */
 public interface WeatherApi {
 
-    @GET(Constants.CURRENT_WEATHER_REQUEST)
+    @GET("weather?units=metric&appid=392dacf20be20e6d845849645c242968")
     Flowable<CurrentWeather> getCurrentWeather(
-            @Query("id") int cityId
+            @Query("q") String name
     );
 
 }

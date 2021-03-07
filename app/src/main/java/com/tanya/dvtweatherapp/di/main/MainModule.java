@@ -20,8 +20,8 @@ public class MainModule {
     }
 
     @Provides
-    static String provideSuccessMessage() {
-        return "Weather API is not null";
+    static String provideMsg() {
+        return "Test";
     }
 
 }

@@ -66,6 +66,10 @@ dependencies {
     def call_adapter_version = '2.9.0'
     implementation "com.squareup.retrofit2:adapter-rxjava2:$call_adapter_version"
 
+    /*Reactive Streams*/
+    def reactivestreams_version = "1.1.1"
+    implementation "android.arch.lifecycle:reactivestreams:$reactivestreams_version"
+
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
