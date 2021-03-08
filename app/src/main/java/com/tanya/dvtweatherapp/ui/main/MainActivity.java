@@ -26,6 +26,7 @@ public class MainActivity extends DaggerAppCompatActivity {
 
         viewPager.setUserInputEnabled(true);
         viewPager.setAdapter(createAdapter());
+        tabLayout.setSmoothScrollingEnabled(true);
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             switch (position) {
                 case 0:
@@ -39,6 +40,7 @@ public class MainActivity extends DaggerAppCompatActivity {
                     break;
             }
         }).attach();
+
 
     }
 

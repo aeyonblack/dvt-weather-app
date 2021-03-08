@@ -1,6 +1,7 @@
 package com.tanya.dvtweatherapp.di.main;
 
-import com.tanya.dvtweatherapp.network.WeatherApi;
+import com.tanya.dvtweatherapp.data.remote.WeatherApi;
+import com.tanya.dvtweatherapp.ui.main.forecast.ForecastRecyclerAdapter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,6 +18,11 @@ public class MainModule {
     @Provides
     static WeatherApi provideWeatherAPI(Retrofit retrofit) {
         return retrofit.create(WeatherApi.class);
+    }
+
+    @Provides
+    static ForecastRecyclerAdapter providesForecastAdapter() {
+        return new ForecastRecyclerAdapter();
     }
 
     @Provides

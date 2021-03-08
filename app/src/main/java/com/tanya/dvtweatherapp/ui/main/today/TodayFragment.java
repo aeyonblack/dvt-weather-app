@@ -1,10 +1,11 @@
 package com.tanya.dvtweatherapp.ui.main.today;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tanya.dvtweatherapp.R;
+import com.tanya.dvtweatherapp.models.CurrentWeather;
 import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
 
 import javax.inject.Inject;
@@ -21,6 +23,8 @@ import dagger.android.support.DaggerFragment;
 public class TodayFragment extends DaggerFragment implements View.OnClickListener {
 
     private TodayViewModel viewModel;
+
+    private TextView errorTextView;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -38,24 +42,50 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
         view.findViewById(R.id.test_search_button).setOnClickListener(this);
 
+        errorTextView = view.findViewById(R.id.test_city_name);
+
         viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
 
         subscribeObservers();
 
+        viewModel.getCurrentWeather(1020098);
     }
 
+    @SuppressLint("SetTextI18n")
     private void subscribeObservers() {
-        viewModel.observeCurrentWeather().observe(getViewLifecycleOwner(), currentWeather -> {
-            if (currentWeather != null) {
-                Toast.makeText(getActivity(), "City Name: " + currentWeather.getCity().getName(),
-                        Toast.LENGTH_LONG).show();
+        viewModel.observeCurrentWeather().observe(getViewLifecycleOwner(), currentWeatherResource -> {
+            if (currentWeatherResource != null) {
+                switch (currentWeatherResource.status) {
+                    case LOADING:
+                        toast("Loading");
+                        break;
+                    case SUCCESS:
+                        toast("Success");
+                        if (currentWeatherResource.data != null) {
+                            displayWeatherData(currentWeatherResource.data);
+                        }
+                        break;
+                    case ERROR:
+                        toast("Error " + currentWeatherResource.message);
+                        errorTextView.setText("Error: " + currentWeatherResource.message);
+                        break;
+                }
             }
         });
     }
-
 
     @Override
     public void onClick(View view) {
 
     }
+
+    private void toast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void displayWeatherData(CurrentWeather currentWeather) {
+        errorTextView.setText("City Name: " + currentWeather.getName());
+    }
+
 }

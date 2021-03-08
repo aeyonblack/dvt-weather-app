@@ -10,4 +10,7 @@
     <color name="teal_primary">#00cccc</color>
     <color name="teal_dark">#00b3b3</color>
     <color name="teal_light">#80ffff</color>
+    <color name="black_primary">#555</color>
+    <color name="black_dark">#444</color>
+    <color name="black_light">#777</color>
 </resources>

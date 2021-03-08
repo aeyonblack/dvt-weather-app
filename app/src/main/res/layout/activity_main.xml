@@ -29,12 +29,12 @@
             style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/teal_primary"
+            android:background="@color/black_primary"
             app:tabIndicatorColor="@color/white"
             app:tabGravity="fill"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/teal_dark"/>
+            app:tabTextColor="@color/black_light"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

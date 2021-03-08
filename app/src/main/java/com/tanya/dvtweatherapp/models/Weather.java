@@ -1,29 +1,40 @@
 package com.tanya.dvtweatherapp.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * A model for the detailed description of a location's weather
  */
+@Entity(tableName = "weather")
 public class Weather {
 
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private long id;
 
     @SerializedName("main")
     @Expose
+    @ColumnInfo(name = "main")
     private String main;
 
     @SerializedName("description")
     @Expose
+    @ColumnInfo(name = "description")
     private String description;
 
     @SerializedName("icon")
     @Expose
+    @ColumnInfo(name = "icon")
     private String icon;
 
+    @Ignore
     public Weather() {
     }
 

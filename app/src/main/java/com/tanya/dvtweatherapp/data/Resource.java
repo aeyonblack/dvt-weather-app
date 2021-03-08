@@ -1,9 +1,11 @@
-package com.tanya.dvtweatherapp.utils;
+package com.tanya.dvtweatherapp.data;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Resource<T> {
+
+    public enum Status { SUCCESS, ERROR, LOADING}
 
     @NonNull
     public final Status status;
@@ -31,7 +33,5 @@ public class Resource<T> {
     public static <T> Resource<T> loading(@Nullable T data) {
         return new Resource<>(Status.LOADING, data, null);
     }
-
-    public enum Status { SUCCESS, ERROR, LOADING}
 
 }
