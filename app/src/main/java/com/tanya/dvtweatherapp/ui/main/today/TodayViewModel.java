@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveDataReactiveStreams;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.tanya.dvtweatherapp.data.WeatherRepository;
 import com.tanya.dvtweatherapp.models.CurrentWeather;
 import com.tanya.dvtweatherapp.data.remote.WeatherApi;
 import com.tanya.dvtweatherapp.data.Resource;
@@ -16,16 +17,26 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TodayViewModel extends ViewModel {
 
-    private final WeatherApi weatherApi;
+    //private final WeatherApi weatherApi;
 
-    private final MediatorLiveData<Resource<CurrentWeather>> currentWeather = new MediatorLiveData<>();
+    //private final MediatorLiveData<Resource<CurrentWeather>> currentWeather = new MediatorLiveData<>();
+
+    private final WeatherRepository weatherRepository;
+
+    private LiveData<Resource<CurrentWeather>> currentWeather;
+
 
     @Inject
-    public TodayViewModel(WeatherApi weatherApi) {
-        this.weatherApi = weatherApi;
+    public TodayViewModel(WeatherRepository weatherRepository) {
+        //this.weatherApi = weatherApi;
+        this.weatherRepository = weatherRepository;
     }
 
-    public void getCurrentWeather(int id) {
+    public LiveData<Resource<CurrentWeather>> getCurrentWeather(int id) {
+        return weatherRepository.getCurrentWeather(id);
+    }
+
+   /* public void getCurrentWeather(int id) {
 
         currentWeather.setValue(Resource.loading(null));
 
@@ -51,10 +62,20 @@ public class TodayViewModel extends ViewModel {
             currentWeather.removeSource(source);
         });
 
-    }
+    } */
+
 
     public LiveData<Resource<CurrentWeather>> observeCurrentWeather() {
         return currentWeather;
+    }
+
+    public String getMsg() {
+        if (weatherRepository != null) {
+            return weatherRepository.getMsg();
+        }
+        else {
+            return "Weather repository is null";
+        }
     }
 
 }

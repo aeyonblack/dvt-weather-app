@@ -3,6 +3,7 @@ package com.tanya.dvtweatherapp.models;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -17,8 +18,8 @@ public class City {
 
     @SerializedName("id")
     @Expose
-    @PrimaryKey
-    private long id;
+    @PrimaryKey(autoGenerate = true)
+    private long cityId;
 
     @SerializedName("name")
     @Expose
@@ -35,22 +36,23 @@ public class City {
     @ColumnInfo(name = "country")
     private String country;
 
+    @Ignore
     public City() {
     }
 
-    public City(long id, String name, Coord coord, String country) {
-        this.id = id;
+    public City(long cityId, String name, Coord coord, String country) {
+        this.cityId = cityId;
         this.name = name;
         this.coord = coord;
         this.country = country;
     }
 
-    public long getId() {
-        return id;
+    public long getCityId() {
+        return cityId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
     }
 
     public String getName() {

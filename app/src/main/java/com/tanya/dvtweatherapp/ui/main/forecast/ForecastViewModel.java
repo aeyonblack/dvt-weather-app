@@ -28,7 +28,7 @@ public class ForecastViewModel extends ViewModel {
         this.weatherApi = weatherApi;
     }
 
-    public void getWeatherForecast(int id) {
+  /*  public void getWeatherForecast(int id) {
 
         // Sets status to loading since data = null
         weatherForecast.setValue(Resource.loading(null));
@@ -54,7 +54,7 @@ public class ForecastViewModel extends ViewModel {
             weatherForecast.removeSource(source);
         });
 
-    }
+    } */
 
     public LiveData<Resource<Forecast>> observeForecast() {
         return weatherForecast;

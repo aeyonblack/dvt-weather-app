@@ -14,8 +14,8 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "coord")
 public class Coord {
 
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    //@PrimaryKey(autoGenerate = true)
+    private long coordId;
 
     @SerializedName("lon")
     @Expose
@@ -52,12 +52,12 @@ public class Coord {
         this.lat = lat;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCoordId(long coordId) {
+        this.coordId = coordId;
     }
 
-    public long getId() {
-        return id;
+    public long getCoordId() {
+        return coordId;
     }
 
 }

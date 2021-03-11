@@ -17,7 +17,7 @@ public class Weather {
     @SerializedName("id")
     @Expose
     @PrimaryKey
-    private long id;
+    private long weatherId;
 
     @SerializedName("main")
     @Expose
@@ -38,19 +38,19 @@ public class Weather {
     public Weather() {
     }
 
-    public Weather(long id, String main, String description, String icon) {
-        this.id = id;
+    public Weather(long weatherId, String main, String description, String icon) {
+        this.weatherId = weatherId;
         this.main = main;
         this.description = description;
         this.icon = icon;
     }
 
-    public long getId() {
-        return id;
+    public long getWeatherId() {
+        return weatherId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setWeatherId(long weatherId) {
+        this.weatherId = weatherId;
     }
 
     public String getMain() {

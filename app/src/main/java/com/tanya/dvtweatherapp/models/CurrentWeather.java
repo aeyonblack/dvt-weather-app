@@ -20,7 +20,8 @@ public class CurrentWeather {
     @SerializedName("id")
     @Expose
     @PrimaryKey
-    private int id;
+    @ColumnInfo(name = "current_weather_id")
+    private int currentWeatherId;
 
     @SerializedName("name")
     @Expose
@@ -68,8 +69,8 @@ public class CurrentWeather {
         // Default Constructor
     }
 
-    public CurrentWeather(int id, String name, long dt, String cod, Coord coord, Main main, List<Weather> weather) {
-        this.id = id;
+    public CurrentWeather(int currentWeatherId, String name, long dt, String cod, Coord coord, Main main, List<Weather> weather) {
+        this.currentWeatherId = currentWeatherId;
         this.name = name;
         this.dt = dt;
         this.cod = cod;
@@ -78,12 +79,12 @@ public class CurrentWeather {
         this.weather = weather;
     }
 
-    public int getId() {
-        return id;
+    public int getCurrentWeatherId() {
+        return currentWeatherId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCurrentWeatherId(int currentWeatherId) {
+        this.currentWeatherId = currentWeatherId;
     }
 
     public String getName() {

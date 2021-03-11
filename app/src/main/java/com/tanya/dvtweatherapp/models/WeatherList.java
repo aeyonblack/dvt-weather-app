@@ -18,7 +18,7 @@ import java.util.List;
 public class WeatherList {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long weatherListId;
 
     @SerializedName("dt")
     @Expose
@@ -47,12 +47,12 @@ public class WeatherList {
         this.weather = weather;
     }
 
-    public long getId() {
-        return id;
+    public long getWeatherListId() {
+        return weatherListId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setWeatherListId(long weatherListId) {
+        this.weatherListId = weatherListId;
     }
 
     public long getDt() {

@@ -18,7 +18,7 @@ import java.util.List;
 public class Forecast {
 
     @PrimaryKey(autoGenerate = true)
-    private long id;
+    private long forecastId;
 
     @SerializedName("cod")
     @Expose
@@ -60,12 +60,12 @@ public class Forecast {
         this.city = city;
     }
 
-    public long getId() {
-        return id;
+    public long getForecastId() {
+        return forecastId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setForecastId(long forecastId) {
+        this.forecastId = forecastId;
     }
 
     public void setCod(String cod) {

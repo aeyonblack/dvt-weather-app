@@ -48,25 +48,28 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
         subscribeObservers();
 
-        viewModel.getCurrentWeather(1020098);
+        //viewModel.getCurrentWeather(1020098);
+
+        toast(viewModel.getMsg());
+
     }
 
     @SuppressLint("SetTextI18n")
     private void subscribeObservers() {
-        viewModel.observeCurrentWeather().observe(getViewLifecycleOwner(), currentWeatherResource -> {
+        viewModel.getCurrentWeather(1020098).observe(getViewLifecycleOwner(), currentWeatherResource -> {
             if (currentWeatherResource != null) {
                 switch (currentWeatherResource.status) {
                     case LOADING:
-                        toast("Loading");
+                        //toast("Loading");
                         break;
                     case SUCCESS:
-                        toast("Success");
+                        //toast("Success");
                         if (currentWeatherResource.data != null) {
                             displayWeatherData(currentWeatherResource.data);
                         }
                         break;
                     case ERROR:
-                        toast("Error " + currentWeatherResource.message);
+                        //toast("Error " + currentWeatherResource.message);
                         errorTextView.setText("Error: " + currentWeatherResource.message);
                         break;
                 }

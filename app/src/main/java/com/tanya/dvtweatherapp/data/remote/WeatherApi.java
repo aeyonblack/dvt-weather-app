@@ -1,11 +1,11 @@
 package com.tanya.dvtweatherapp.data.remote;
 
+import androidx.lifecycle.LiveData;
+
 import com.tanya.dvtweatherapp.models.CurrentWeather;
 import com.tanya.dvtweatherapp.models.Forecast;
-import com.tanya.dvtweatherapp.utils.Constants;
+import com.tanya.dvtweatherapp.network.ApiResponse;
 
-import io.reactivex.Flowable;
-import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -20,7 +20,7 @@ public interface WeatherApi {
      * @return Current weather data for specified location with id = id
      */
     @GET("weather?appid=392dacf20be20e6d845849645c242968&units=metric")
-    Flowable<CurrentWeather> getCurrentWeather(
+    LiveData<ApiResponse<CurrentWeather>> getCurrentWeather(
             @Query("id") int id
     );
 
@@ -30,7 +30,7 @@ public interface WeatherApi {
      * @return 5 Day forecast for specified location
      */
     @GET("forecast?appid=392dacf20be20e6d845849645c242968&units=metric&cnt=5")
-    Flowable<Forecast> getFiveDayForecast(
+    LiveData<ApiResponse<Forecast>> getFiveDayForecast(
             @Query("id") int id
     );
 

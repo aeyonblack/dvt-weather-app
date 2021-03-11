@@ -47,11 +47,11 @@ public class ForecastFragment extends DaggerFragment {
 
         viewModel = new ViewModelProvider(this, providerFactory).get(ForecastViewModel.class);
 
-        setupRecyclerView();
+        //setupRecyclerView();
 
-        subscribeObservers();
+        //subscribeObservers();
 
-        viewModel.getWeatherForecast(1020098);
+        //viewModel.getWeatherForecast(1020098);
 
     }
 

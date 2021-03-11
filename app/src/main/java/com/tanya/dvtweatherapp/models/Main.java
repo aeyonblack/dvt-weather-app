@@ -14,8 +14,8 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "main")
 public class Main {
 
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    //@PrimaryKey(autoGenerate = true)
+    private long mainId;
 
     @SerializedName("temp")
     @Expose
@@ -42,12 +42,12 @@ public class Main {
         this.humidity = humidity;
     }
 
-    public long getId() {
-        return id;
+    public long getMainId() {
+        return mainId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setMainId(long mainId) {
+        this.mainId = mainId;
     }
 
     public double getTemp() {
