@@ -18,7 +18,7 @@ public class City {
 
     @SerializedName("id")
     @Expose
-    @PrimaryKey(autoGenerate = true)
+    //@PrimaryKey
     private long cityId;
 
     @SerializedName("name")

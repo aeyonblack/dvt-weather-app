@@ -13,4 +13,10 @@
     <color name="black_primary">#555</color>
     <color name="black_dark">#444</color>
     <color name="black_light">#777</color>
+    <color name="purple_primary">#9900cc</color>
+    <color name="purple_dark">#8600b3</color>
+    <color name="purple_light">#cc33ff</color>
+    <color name="blue_primary">#33bbff</color>
+    <color name="blue_dark">#1ab2ff</color>
+    <color name="blue_light">#66ccff</color>
 </resources>

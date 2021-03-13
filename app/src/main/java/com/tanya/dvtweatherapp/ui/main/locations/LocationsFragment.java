@@ -2,19 +2,33 @@ package com.tanya.dvtweatherapp.ui.main.locations;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.tanya.dvtweatherapp.R;
+import com.tanya.dvtweatherapp.models.FavouriteLocation;
+import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
 
-public class LocationsFragment extends Fragment {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+import java.util.List;
+
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerFragment;
+
+public class LocationsFragment extends DaggerFragment {
+
+    private LocationsViewModel viewModel;
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,4 +36,24 @@ public class LocationsFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_locations, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(this, providerFactory).get(LocationsViewModel.class);
+        subscribeObservers();
+    }
+
+    private void subscribeObservers() {
+        viewModel.getFavouriteLocations().observe(getViewLifecycleOwner(), favouriteLocations -> {
+            if (favouriteLocations != null) {
+                // Do something
+            }
+        });
+    }
+
+    private void toast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
 }

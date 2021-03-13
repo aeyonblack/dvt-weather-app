@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:text="Temperature"/>
         <Button
-            android:id="@+id/test_search_button"
+            android:id="@+id/test_save_location_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Data"/>
+            android:text="Save Location"/>
     </LinearLayout>
 
 </FrameLayout>

@@ -22,6 +22,11 @@ public class Main {
     @ColumnInfo(name = "temp")
     private double temp;
 
+    @SerializedName("feels_like")
+    @Expose
+    @ColumnInfo(name = "feels_like")
+    private double feelsLike;
+
     @SerializedName("pressure")
     @Expose
     @ColumnInfo(name = "pressure")
@@ -56,6 +61,14 @@ public class Main {
 
     public void setTemp(double temp) {
         this.temp = temp;
+    }
+
+    public double getFeelsLike() {
+        return feelsLike;
+    }
+
+    public void setFeelsLike(double feelsLike) {
+        this.feelsLike = feelsLike;
     }
 
     public long getPressure() {

@@ -5,17 +5,23 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import androidx.annotation.NonNull;
 import androidx.room.Room;
+import androidx.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.tanya.dvtweatherapp.data.local.DatabaseMigration;
 import com.tanya.dvtweatherapp.data.local.WeatherDatabase;
 import com.tanya.dvtweatherapp.data.local.dao.WeatherDao;
 import com.tanya.dvtweatherapp.utils.Constants;
 import com.tanya.dvtweatherapp.utils.LiveDataCallAdapterFactory;
+import com.tanya.dvtweatherapp.utils.NetworkUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -30,6 +36,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class AppModule {
 
+    /**
+     * Defines the OkHttpClient for use with retrofit
+     * @return OkHttpClient
+     */
     @Singleton
     @Provides
     static OkHttpClient provideOkHttpClient() {
@@ -52,15 +62,23 @@ public class AppModule {
         return new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .client(okHttpClient)
-                .addCallAdapterFactory(new LiveDataCallAdapterFactory()) // TODO: Maybe change this to use RxJava2
+                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
 
+    /**
+     * Provides a persistent reference to the weather database
+     * @param application - the application
+     * @return weather database instance
+     * TODO: Remove allowMainThreadQueries
+     */
     @Singleton
     @Provides
     static WeatherDatabase provideWeatherDatabase(Application application) {
         return Room.databaseBuilder(application, WeatherDatabase.class, "weather_data.db")
+                .addMigrations(DatabaseMigration.MIGRATION_1_2)
+                .allowMainThreadQueries()
                 .build();
     }
 
@@ -68,17 +86,6 @@ public class AppModule {
     @Provides
     static WeatherDao provideWeatherDao(WeatherDatabase weatherDatabase) {
         return weatherDatabase.weatherDao();
-    }
-
-    @Singleton
-    @Provides
-    static boolean provideNetworkState(Application application) {
-        ConnectivityManager manager = (ConnectivityManager)application
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() ==
-                NetworkInfo.State.CONNECTED || manager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
-                .getState() == NetworkInfo.State.CONNECTED;
     }
 
 }

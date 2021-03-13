@@ -7,10 +7,18 @@ import androidx.lifecycle.LiveData;
 import com.tanya.dvtweatherapp.data.local.dao.WeatherDao;
 import com.tanya.dvtweatherapp.data.remote.WeatherApi;
 import com.tanya.dvtweatherapp.models.CurrentWeather;
+import com.tanya.dvtweatherapp.models.FavouriteLocation;
 import com.tanya.dvtweatherapp.network.ApiResponse;
 import com.tanya.dvtweatherapp.utils.AppExecutors;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class WeatherRepository {
 
@@ -19,30 +27,20 @@ public class WeatherRepository {
 
     private String msg;
 
-    // Check if there's an internet connection
-    private final boolean isConnected;
-
     @Inject
-    public WeatherRepository(WeatherDao weatherDao, WeatherApi weatherApi, boolean isConnected) {
+    public WeatherRepository(WeatherDao weatherDao, WeatherApi weatherApi) {
         this.weatherDao = weatherDao;
         this.weatherApi = weatherApi;
-        this.isConnected = isConnected;
-
-        if (isConnected)
-            msg = "Internet connection available ";
-        else
-            msg = "No internet connection ";
     }
 
-    public LiveData<Resource<CurrentWeather>> getCurrentWeather(int id) {
+    public LiveData<Resource<CurrentWeather>> getCurrentWeather(int id, boolean isConnected) {
+        msg = isConnected ? "Internet connection available " : "No internet connection ";
         return new NetworkBoundResource<CurrentWeather, CurrentWeather>(AppExecutors.getInstance()) {
             @Override
             protected void saveCallResult(@NonNull CurrentWeather item) {
-                if (item != null) {
-                    // TODO: Set timestamp here
-                    msg += " [saving call result]: " + item.getName();
-                    weatherDao.saveCurrentWeather(item);
-                }
+                // TODO: Set timestamp here
+                msg += " [saving call result]: " + item.getName();
+                weatherDao.saveCurrentWeather(item);
             }
 
             @Override
@@ -66,6 +64,19 @@ public class WeatherRepository {
             }
         }
         .getAsLiveData();
+    }
+
+    public void saveWeatherLocation(CurrentWeather currentWeather) {
+        FavouriteLocation location = new FavouriteLocation();
+        location.setLocationId(currentWeather.getCurrentWeatherId());
+        location.setLocationName(currentWeather.getName());
+        location.setLat(currentWeather.getCoord().getLat());
+        location.setLon(currentWeather.getCoord().getLon());
+        weatherDao.saveLocationAsFavourite(location);
+    }
+
+    public LiveData<List<FavouriteLocation>> getFavouriteLocations() {
+        return weatherDao.loadFavouriteLocations();
     }
 
     public String getMsg() {

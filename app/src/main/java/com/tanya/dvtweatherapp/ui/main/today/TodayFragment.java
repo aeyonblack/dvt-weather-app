@@ -14,7 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.models.CurrentWeather;
+import com.tanya.dvtweatherapp.utils.NetworkUtil;
 import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -25,6 +28,8 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     private TodayViewModel viewModel;
 
     private TextView errorTextView;
+
+    private CurrentWeather currentWeather;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -40,7 +45,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.test_search_button).setOnClickListener(this);
+        view.findViewById(R.id.test_save_location_button).setOnClickListener(this);
 
         errorTextView = view.findViewById(R.id.test_city_name);
 
@@ -56,7 +61,9 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
     @SuppressLint("SetTextI18n")
     private void subscribeObservers() {
-        viewModel.getCurrentWeather(1020098).observe(getViewLifecycleOwner(), currentWeatherResource -> {
+        viewModel.getCurrentWeather(1020098, NetworkUtil
+                .isConnected(Objects.requireNonNull(getActivity())))
+                .observe(getViewLifecycleOwner(), currentWeatherResource -> {
             if (currentWeatherResource != null) {
                 switch (currentWeatherResource.status) {
                     case LOADING:
@@ -66,6 +73,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                         //toast("Success");
                         if (currentWeatherResource.data != null) {
                             displayWeatherData(currentWeatherResource.data);
+                            currentWeather = currentWeatherResource.data;
                         }
                         break;
                     case ERROR:
@@ -79,7 +87,10 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-
+        if (view.getId() == R.id.test_save_location_button) {
+            toast("Saving location");
+            viewModel.saveWeatherLocation(currentWeather);
+        }
     }
 
     private void toast(String message) {
