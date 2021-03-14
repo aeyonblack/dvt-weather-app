@@ -27,8 +27,6 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
     private TodayViewModel viewModel;
 
-    private TextView errorTextView;
-
     private CurrentWeather currentWeather;
 
     @Inject
@@ -45,17 +43,11 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.test_save_location_button).setOnClickListener(this);
-
-        errorTextView = view.findViewById(R.id.test_city_name);
+        view.findViewById(R.id.save_location_button).setOnClickListener(this);
 
         viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
 
         subscribeObservers();
-
-        //viewModel.getCurrentWeather(1020098);
-
-        toast(viewModel.getMsg());
 
     }
 
@@ -78,7 +70,6 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                         break;
                     case ERROR:
                         //toast("Error " + currentWeatherResource.message);
-                        errorTextView.setText("Error: " + currentWeatherResource.message);
                         break;
                 }
             }
@@ -87,7 +78,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.test_save_location_button) {
+        if (view.getId() == R.id.save_location_button) {
             toast("Saving location");
             viewModel.saveWeatherLocation(currentWeather);
         }
@@ -99,7 +90,6 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
     @SuppressLint("SetTextI18n")
     private void displayWeatherData(CurrentWeather currentWeather) {
-        errorTextView.setText("City Name: " + currentWeather.getName());
     }
 
 }

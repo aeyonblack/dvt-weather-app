@@ -13,10 +13,20 @@
     <color name="black_primary">#555</color>
     <color name="black_dark">#444</color>
     <color name="black_light">#777</color>
-    <color name="purple_primary">#9900cc</color>
-    <color name="purple_dark">#8600b3</color>
-    <color name="purple_light">#cc33ff</color>
-    <color name="blue_primary">#33bbff</color>
-    <color name="blue_dark">#1ab2ff</color>
-    <color name="blue_light">#66ccff</color>
+    <color name="purple_primary">#cc00cc</color>
+    <color name="purple_dark">#b300b3</color>
+    <color name="purple_light">#ffccff</color>
+    <color name="blue_primary">#0099e6</color>
+    <color name="blue_dark">#0088cc</color>
+    <color name="blue_light">#b3e6ff</color>
+    <color name="forest_cloudy">#54717A</color>
+    <color name="forest_cloudy_dark">#496269</color>
+    <color name="forest_cloudy_light">#b4c6cb</color>
+    <color name="forest_sunny">#ff8c1a</color>
+    <color name="forest_sunny_dark">#ff8000</color>
+    <color name="forest_sunny_light">#ffcc99</color>
+    <color name="forest_sunny_green">#47AB2F</color>
+    <color name="rainy_color">#52527a</color>
+    <color name="rainy_dark">#47476b</color>
+    <color name="rainy_light">#c2c2d6</color>
 </resources>

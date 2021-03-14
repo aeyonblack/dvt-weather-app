@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_location_hint">Search location...</string>
+    <string name="background_content_description">Weather condition background</string>
+    <string name="weather_icon">Weather icon</string>
+    <string name="max_min_paceholder">Max 26°↑ · Min 19°↓</string>
 </resources>
