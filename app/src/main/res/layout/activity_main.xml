@@ -11,25 +11,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.mancj.materialsearchbar.MaterialSearchBar
-            android:id="@+id/search_view"
-            style="@style/MaterialSearchBarLight"
+        <!--FrameLayout to contain toolbar and search view-->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:mt_hint="@string/search_location_hint"
-            app:mt_maxSuggestionsCount="10"
-            app:mt_speechMode="false"
-            app:mt_navIconEnabled="true"
-            android:layout_margin="8dp"
-            android:elevation="3dp"
-            app:mt_placeholder="Dvt Weather"/>
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.mancj.materialsearchbar.MaterialSearchBar
+                android:id="@+id/search_view"
+                style="@style/MaterialSearchBarLight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mt_hint="@string/search_location_hint"
+                app:mt_maxSuggestionsCount="10"
+                app:mt_speechMode="false"
+                app:mt_navIconEnabled="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:elevation="3dp"
+                app:mt_placeholder="Dvt Weather"/>
+
+        </FrameLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             style="@style/Widget.MaterialComponents.TabLayout.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/rainy_color"
+            android:background="@color/rainy_primary"
             app:tabIndicatorColor="@color/white"
             app:tabGravity="fill"
             app:tabMode="fixed"

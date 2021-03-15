@@ -2,17 +2,22 @@ package com.tanya.dvtweatherapp.ui.main;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.tanya.dvtweatherapp.R;
+import com.tanya.dvtweatherapp.models.CurrentWeather;
 import com.tanya.dvtweatherapp.ui.main.adapter.ViewPagerAdapter;
+import com.tanya.dvtweatherapp.ui.main.today.TodayFragment;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class MainActivity extends DaggerAppCompatActivity {
+public class MainActivity extends DaggerAppCompatActivity implements
+        TodayFragment.OnWeatherLoadedListener {
 
+    Toolbar toolbar;
     TabLayout tabLayout;
     ViewPager2 viewPager;
 
@@ -21,6 +26,8 @@ public class MainActivity extends DaggerAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.pager);
 
@@ -41,7 +48,6 @@ public class MainActivity extends DaggerAppCompatActivity {
             }
         }).attach();
 
-
     }
 
     /**
@@ -52,4 +58,44 @@ public class MainActivity extends DaggerAppCompatActivity {
     private ViewPagerAdapter createAdapter() {
         return new ViewPagerAdapter(this);
     }
+
+    /**
+     * Change app theme based on weather results
+     * @param currentWeather - weather data
+     */
+    @Override
+    public void onWeatherLoaded(CurrentWeather currentWeather) {
+        if (currentWeather != null) {
+            switch (currentWeather.getWeather().get(0).getMain()) {
+                case "Clouds":
+                    setToolbarColor(R.color.purple_primary);
+                    setTabLayoutColors(R.color.purple_primary, R.color.purple_light);
+                    break;
+                case "Rain":
+                    setToolbarColor(R.color.rainy_primary);
+                    setTabLayoutColors(R.color.rainy_primary, R.color.rainy_light);
+                    break;
+                default:
+                    setToolbarColor(R.color.blue_primary);
+                    setTabLayoutColors(R.color.blue_primary, R.color.blue_light);
+                    break;
+            }
+        }
+    }
+
+    /*Support methods*/
+
+    private int color(int id) {
+        return getResources().getColor(id);
+    }
+
+    private void setToolbarColor(int id) {
+        toolbar.setBackgroundColor(color(id));
+    }
+
+    private void setTabLayoutColors(int primary, int light) {
+        tabLayout.setBackgroundColor(color(primary));
+        tabLayout.setTabTextColors(color(light), color(R.color.white));
+    }
+
 }

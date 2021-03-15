@@ -22,6 +22,16 @@ public class Main {
     @ColumnInfo(name = "temp")
     private double temp;
 
+    @SerializedName("temp_min")
+    @Expose
+    @ColumnInfo(name = "temp_min")
+    private double minTemp;
+
+    @SerializedName("temp_max")
+    @Expose
+    @ColumnInfo(name = "temp_max")
+    private double maxTemp;
+
     @SerializedName("feels_like")
     @Expose
     @ColumnInfo(name = "feels_like")
@@ -37,12 +47,17 @@ public class Main {
     @ColumnInfo(name = "humidity")
     private long humidity;
 
+
     @Ignore
     public Main() {
     }
 
-    public Main(double temp, long pressure, long humidity) {
+    public Main(long mainId, double temp, double minTemp, double maxTemp, double feelsLike, long pressure, long humidity) {
+        this.mainId = mainId;
         this.temp = temp;
+        this.minTemp = minTemp;
+        this.maxTemp = maxTemp;
+        this.feelsLike = feelsLike;
         this.pressure = pressure;
         this.humidity = humidity;
     }
@@ -61,6 +76,22 @@ public class Main {
 
     public void setTemp(double temp) {
         this.temp = temp;
+    }
+
+    public double getMinTemp() {
+        return minTemp;
+    }
+
+    public void setMinTemp(double minTemp) {
+        this.minTemp = minTemp;
+    }
+
+    public double getMaxTemp() {
+        return maxTemp;
+    }
+
+    public void setMaxTemp(double maxTemp) {
+        this.maxTemp = maxTemp;
     }
 
     public double getFeelsLike() {

@@ -26,7 +26,7 @@
     <color name="forest_sunny_dark">#ff8000</color>
     <color name="forest_sunny_light">#ffcc99</color>
     <color name="forest_sunny_green">#47AB2F</color>
-    <color name="rainy_color">#52527a</color>
+    <color name="rainy_primary">#52527a</color>
     <color name="rainy_dark">#47476b</color>
     <color name="rainy_light">#c2c2d6</color>
 </resources>

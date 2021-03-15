@@ -37,6 +37,12 @@ dependencies {
     //Material Search bar
     implementation 'com.github.mancj:MaterialSearchbar:0.8.5'
 
+    //Glide
+    def glide_version = "4.9.0"
+    //noinspection GradleDependency
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
     //Dagger
     def dagger_version = "2.27"
 
@@ -75,7 +81,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
 
-    // optional - RxJava support for Room
+    // RxJava support for Room
     implementation "androidx.room:room-rxjava2:$room_version"
 
 

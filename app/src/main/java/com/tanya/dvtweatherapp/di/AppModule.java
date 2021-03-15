@@ -10,6 +10,10 @@ import androidx.room.Room;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
+import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.data.local.DatabaseMigration;
 import com.tanya.dvtweatherapp.data.local.WeatherDatabase;
 import com.tanya.dvtweatherapp.data.local.dao.WeatherDao;
@@ -71,7 +75,7 @@ public class AppModule {
      * Provides a persistent reference to the weather database
      * @param application - the application
      * @return weather database instance
-     * TODO: Remove allowMainThreadQueries
+     * TODO: Remove allowMainThreadQueries, use RxJava to move queries off the main thread
      */
     @Singleton
     @Provides
@@ -86,6 +90,22 @@ public class AppModule {
     @Provides
     static WeatherDao provideWeatherDao(WeatherDatabase weatherDatabase) {
         return weatherDatabase.weatherDao();
+    }
+
+    @Singleton
+    @Provides
+    static RequestOptions provideRequestOptions() {
+        return RequestOptions
+                .placeholderOf(R.drawable.ic_baseline_cloud_off_24)
+                .error(R.drawable.ic_baseline_cloud_off_24);
+
+    }
+
+    @Singleton
+    @Provides
+    static RequestManager provideGlideInstance(Application application, RequestOptions options) {
+        return Glide.with(application)
+                .setDefaultRequestOptions(options);
     }
 
 }

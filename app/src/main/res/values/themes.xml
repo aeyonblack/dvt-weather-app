@@ -17,7 +17,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.ForestSunny" parent="Theme.DVTWeatherApp">
+    <style name="Theme.Default" parent="Theme.DVTWeatherApp">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_primary</item>
         <item name="colorPrimaryVariant">@color/blue_dark</item>
@@ -37,7 +37,7 @@
 
     <style name="Theme.Rainy" parent="Theme.DVTWeatherApp">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/rainy_color</item>
+        <item name="colorPrimary">@color/rainy_primary</item>
         <item name="colorPrimaryVariant">@color/rainy_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
