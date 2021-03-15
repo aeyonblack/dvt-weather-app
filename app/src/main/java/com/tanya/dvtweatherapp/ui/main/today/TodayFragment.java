@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,6 +54,8 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     private ImageView weatherIconView;
     private SwipeRefreshLayout swipeRefreshLayout;
 
+    private Button saveLocationButton;
+
     /*Listeners*/
 
     OnWeatherLoadedListener weatherLoadedListener;
@@ -81,7 +84,9 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         weatherIconView = view.findViewById(R.id.weather_icon);
         swipeRefreshLayout = view.findViewById(R.id.today_fragment_container);
 
-        view.findViewById(R.id.save_location_button).setOnClickListener(this);
+        saveLocationButton = view.findViewById(R.id.save_location_button);
+
+        saveLocationButton.setOnClickListener(this);
 
         viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
 
@@ -102,9 +107,11 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                 switch (currentWeatherResource.status) {
                     case LOADING:
                         //toast("Loading");
+                        weatherLoadedListener.onLoad(LoadStatus.LOADING);
                         break;
                     case SUCCESS:
                         //toast("Success");
+                        weatherLoadedListener.onLoad(LoadStatus.SUCCESS);
                         if (currentWeatherResource.data != null) {
                             weatherLoadedListener.onWeatherLoaded(currentWeatherResource.data);
                             displayWeatherData(currentWeatherResource.data);
@@ -113,6 +120,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                         break;
                     case ERROR:
                         //toast("Error " + currentWeatherResource.message);
+                        weatherLoadedListener.onLoad(LoadStatus.ERROR);
                         break;
                 }
             }
@@ -169,12 +177,15 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         switch (weatherCondition) {
             case "Clouds":
                 swipeRefreshLayout.setBackground(getResources().getDrawable(R.drawable.grad_cloudy));
+                saveLocationButton.setBackgroundColor(getResources().getColor(R.color.purple_primary));
                 break;
             case "Rain":
                 swipeRefreshLayout.setBackground(getResources().getDrawable(R.drawable.grad_rainy));
+                saveLocationButton.setBackgroundColor(getResources().getColor(R.color.rainy_primary));
                 break;
             default:
                 swipeRefreshLayout.setBackground(getResources().getDrawable(R.drawable.grad_sunny));
+                saveLocationButton.setBackgroundColor(getResources().getColor(R.color.purple_sunny_primary));
                 break;
         }
     }
@@ -184,6 +195,14 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
      */
     public interface OnWeatherLoadedListener {
         void onWeatherLoaded(CurrentWeather currentWeather);
+        void onLoad(LoadStatus status);
+    }
+
+    /*Tell me if the app is still loading*/
+    public enum LoadStatus {
+        LOADING,
+        SUCCESS,
+        ERROR
     }
 
 }

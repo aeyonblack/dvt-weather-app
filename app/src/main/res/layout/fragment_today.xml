@@ -10,9 +10,13 @@
     
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="ScrollViewCount"
+        android:scrollbars="none">
 
+        <!--Main content-->
         <RelativeLayout
+            android:id="@+id/today_weather_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -106,8 +110,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"/>
 
-
         </RelativeLayout>
+
 
     </ScrollView>
 

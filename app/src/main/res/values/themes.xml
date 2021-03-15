@@ -19,11 +19,11 @@
 
     <style name="Theme.Default" parent="Theme.DVTWeatherApp">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/blue_primary</item>
-        <item name="colorPrimaryVariant">@color/blue_dark</item>
+        <item name="colorPrimary">@color/purple_sunny_primary</item>
+        <item name="colorPrimaryVariant">@color/purple_sunny_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/blue_light</item>
+        <item name="colorSecondary">@color/purple_sunny_light</item>
     </style>
 
     <style name="Theme.Cloudy" parent="Theme.DVTWeatherApp">

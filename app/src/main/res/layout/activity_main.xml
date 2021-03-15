@@ -7,9 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
+    <!--Splash screen for when the app is loading-->
+    <include
+        android:id="@+id/splash_screen"
+        layout="@layout/splash_screen"
+        android:visibility="gone"/>
+
+    <!--Appbar for SearchView, Toolbar and TabLayout-->
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="visible">
 
         <!--FrameLayout to contain toolbar and search view-->
         <FrameLayout
@@ -56,6 +65,7 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

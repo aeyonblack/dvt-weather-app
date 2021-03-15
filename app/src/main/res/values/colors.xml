@@ -16,9 +16,9 @@
     <color name="purple_primary">#cc00cc</color>
     <color name="purple_dark">#b300b3</color>
     <color name="purple_light">#ffccff</color>
-    <color name="blue_primary">#0099e6</color>
-    <color name="blue_dark">#0088cc</color>
-    <color name="blue_light">#b3e6ff</color>
+    <color name="purple_sunny_primary">#bf80ff</color>
+    <color name="purple_sunny_dark">#b366ff</color>
+    <color name="purple_sunny_light">#e6ccff</color>
     <color name="forest_cloudy">#54717A</color>
     <color name="forest_cloudy_dark">#496269</color>
     <color name="forest_cloudy_light">#b4c6cb</color>
