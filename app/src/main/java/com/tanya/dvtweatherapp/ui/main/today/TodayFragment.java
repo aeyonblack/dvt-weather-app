@@ -18,6 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.RequestManager;
 import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.models.CurrentWeather;
+import com.tanya.dvtweatherapp.utils.DateFormatter;
 import com.tanya.dvtweatherapp.utils.NetworkUtil;
 import com.tanya.dvtweatherapp.utils.ToastUtil;
 import com.tanya.dvtweatherapp.utils.WeatherIconManager;
@@ -50,6 +51,8 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     private TextView maxMinTemperatureView;
     private TextView feelsLikeView;
     private TextView weatherDescriptionView;
+    private TextView dayOfWeekView;
+    private TextView timeSinceLastUpdateView;
 
     private ImageView weatherIconView;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -81,6 +84,9 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         maxMinTemperatureView = view.findViewById(R.id.temp_min_max);
         feelsLikeView = view.findViewById(R.id.feels_like);
         weatherDescriptionView = view.findViewById(R.id.weather_description);
+        dayOfWeekView = view.findViewById(R.id.day_of_week);
+        timeSinceLastUpdateView = view.findViewById(R.id.time_since_last_update);
+
         weatherIconView = view.findViewById(R.id.weather_icon);
         swipeRefreshLayout = view.findViewById(R.id.today_fragment_container);
 
@@ -148,6 +154,12 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         // Get temperature and load into view
         int temp = (int)(Math.round(currentWeather.getMain().getTemp()));
         mainTemperatureView.setText(temp + "\u00B0");
+
+        // Display date
+        dayOfWeekView.setText(DateFormatter.getDayOfWeek(currentWeather.getTimeStamp()));
+
+        // Display time since last update
+        timeSinceLastUpdateView.setText(DateFormatter.getTimeSinceLastUpdate(currentWeather.getTimeStamp()));
 
         // Get min and max temp then load into view
         int minTemp = (int)(Math.round(currentWeather.getMain().getMinTemp()));

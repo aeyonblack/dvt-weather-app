@@ -33,6 +33,9 @@ public class CurrentWeather {
     @ColumnInfo(name = "date")
     private long dt;
 
+    @ColumnInfo(name = "time_stamp")
+    private long timeStamp;
+
     @SerializedName("cod")
     @Expose
     @ColumnInfo(name = "cod")
@@ -69,10 +72,11 @@ public class CurrentWeather {
         // Default Constructor
     }
 
-    public CurrentWeather(int currentWeatherId, String name, long dt, String cod, Coord coord, Main main, List<Weather> weather) {
+    public CurrentWeather(int currentWeatherId, String name, long dt, long timeStamp, String cod, Coord coord, Main main, List<Weather> weather) {
         this.currentWeatherId = currentWeatherId;
         this.name = name;
         this.dt = dt;
+        this.timeStamp = timeStamp;
         this.cod = cod;
         this.coord = coord;
         this.main = main;
@@ -101,6 +105,14 @@ public class CurrentWeather {
 
     public void setDt(long dt) {
         this.dt = dt;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public Coord getCoord() {

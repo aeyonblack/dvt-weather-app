@@ -38,8 +38,8 @@ public class WeatherRepository {
         return new NetworkBoundResource<CurrentWeather, CurrentWeather>(AppExecutors.getInstance()) {
             @Override
             protected void saveCallResult(@NonNull CurrentWeather item) {
-                // TODO: Set timestamp here
                 msg += " [saving call result]: " + item.getName();
+                item.setTimeStamp(System.currentTimeMillis());
                 weatherDao.saveCurrentWeather(item);
             }
 
