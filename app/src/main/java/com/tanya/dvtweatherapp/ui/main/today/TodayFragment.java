@@ -3,6 +3,7 @@ package com.tanya.dvtweatherapp.ui.main.today;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,8 @@ import javax.inject.Inject;
 
 import dagger.android.support.DaggerFragment;
 
-public class TodayFragment extends DaggerFragment implements View.OnClickListener {
+public class TodayFragment extends DaggerFragment implements View.OnClickListener,
+        SwipeRefreshLayout.OnRefreshListener {
 
     /*Objects*/
 
@@ -88,7 +90,15 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         timeSinceLastUpdateView = view.findViewById(R.id.time_since_last_update);
 
         weatherIconView = view.findViewById(R.id.weather_icon);
+
         swipeRefreshLayout = view.findViewById(R.id.today_fragment_container);
+        swipeRefreshLayout.setColorSchemeColors(
+                getResources().getColor(R.color.purple_sunny_primary),
+                getResources().getColor(R.color.forest_sunny),
+                getResources().getColor(R.color.teal_primary),
+                getResources().getColor(R.color.rainy_primary));
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         saveLocationButton = view.findViewById(R.id.save_location_button);
 
@@ -113,7 +123,12 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                 switch (currentWeatherResource.status) {
                     case LOADING:
                         //toast("Loading");
-                        weatherLoadedListener.onLoad(LoadStatus.LOADING);
+                        if (swipeRefreshLayout.isRefreshing()) {
+                            weatherLoadedListener.onLoad(LoadStatus.REFRESHING);
+                        }
+                        else {
+                            weatherLoadedListener.onLoad(LoadStatus.LOADING);
+                        }
                         break;
                     case SUCCESS:
                         //toast("Success");
@@ -122,6 +137,10 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                             weatherLoadedListener.onWeatherLoaded(currentWeatherResource.data);
                             displayWeatherData(currentWeatherResource.data);
                             currentWeather = currentWeatherResource.data;
+                        }
+                        if (swipeRefreshLayout.isRefreshing())
+                        {
+                            stopRefreshing();
                         }
                         break;
                     case ERROR:
@@ -202,6 +221,16 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         }
     }
 
+    @Override
+    public void onRefresh() {
+        ToastUtil.toast(getActivity(), "Refreshing");
+        subscribeObservers();
+    }
+
+    private void stopRefreshing() {
+        new Handler().postDelayed(() -> swipeRefreshLayout.setRefreshing(false), 2000);
+    }
+
     /**
      * Responsible for communicating data to MainActivity
      */
@@ -214,6 +243,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     public enum LoadStatus {
         LOADING,
         SUCCESS,
+        REFRESHING,
         ERROR
     }
 

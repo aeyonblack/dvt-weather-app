@@ -1,5 +1,7 @@
 package com.tanya.dvtweatherapp.di.main;
 
+import android.app.Application;
+
 import com.tanya.dvtweatherapp.data.remote.WeatherApi;
 import com.tanya.dvtweatherapp.ui.main.forecast.ForecastRecyclerAdapter;
 
@@ -21,8 +23,8 @@ public class MainModule {
     }
 
     @Provides
-    static ForecastRecyclerAdapter providesForecastAdapter() {
-        return new ForecastRecyclerAdapter();
+    static ForecastRecyclerAdapter providesForecastAdapter(Application application) {
+        return new ForecastRecyclerAdapter(application);
     }
 
     @Provides

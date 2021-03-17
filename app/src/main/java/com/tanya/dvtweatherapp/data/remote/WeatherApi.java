@@ -29,7 +29,7 @@ public interface WeatherApi {
      * @param id - location id
      * @return 5 Day forecast for specified location
      */
-    @GET("forecast?appid=392dacf20be20e6d845849645c242968&units=metric&cnt=5")
+    @GET("forecast?appid=392dacf20be20e6d845849645c242968&units=metric")
     LiveData<ApiResponse<Forecast>> getFiveDayForecast(
             @Query("id") int id
     );

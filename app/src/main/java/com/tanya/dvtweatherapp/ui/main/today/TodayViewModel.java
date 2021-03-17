@@ -26,14 +26,4 @@ public class TodayViewModel extends ViewModel {
         weatherRepository.saveWeatherLocation(currentWeather);
     }
 
-    //TODO: Remove this method
-    public String getMsg() {
-        if (weatherRepository != null) {
-            return weatherRepository.getMsg();
-        }
-        else {
-            return "Weather repository is null";
-        }
-    }
-
 }

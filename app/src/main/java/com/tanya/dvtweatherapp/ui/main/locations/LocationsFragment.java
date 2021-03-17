@@ -1,23 +1,17 @@
 package com.tanya.dvtweatherapp.ui.main.locations;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.tanya.dvtweatherapp.R;
-import com.tanya.dvtweatherapp.models.FavouriteLocation;
-import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 
-import java.util.List;
+import com.tanya.dvtweatherapp.R;
+import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
 
 import javax.inject.Inject;
 

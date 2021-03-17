@@ -2,7 +2,9 @@ package com.tanya.dvtweatherapp.utils;
 
 import android.text.format.DateFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateFormatter {
 
@@ -12,6 +14,23 @@ public class DateFormatter {
     public static String getDayOfWeek(Long time) {
         Date date = new Date(time);
         return (String)DateFormat.format("EEEE", date);
+    }
+
+    public static String getDayOfWeek(String date, int dayCount) {
+        String inputFormat = "yyyy-MM-dd HH:mm:ss";
+        Date parsed = null;
+        SimpleDateFormat input = new SimpleDateFormat(inputFormat, Locale.getDefault());
+
+        try {
+            parsed = input.parse(date);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd EEEE", Locale.getDefault());
+            if (parsed != null) {
+                date = dateFormat.format(parsed.getTime() + (dayCount*24*60*60*1000));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     /**

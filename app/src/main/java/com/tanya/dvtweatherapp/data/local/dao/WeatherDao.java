@@ -29,8 +29,8 @@ public interface WeatherDao {
 
     /*Weather forecast data*/
 
-    @Query("SELECT * FROM weather_forecast")
-    LiveData<Forecast> loadWeatherForecast();
+    @Query("SELECT * FROM weather_forecast WHERE cityId = :id")
+    LiveData<Forecast> loadWeatherForecast(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveWeatherForecast(Forecast forecast);

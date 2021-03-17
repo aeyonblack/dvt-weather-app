@@ -1,14 +1,8 @@
 package com.tanya.dvtweatherapp.di;
 
 import android.app.Application;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 
-import androidx.annotation.NonNull;
 import androidx.room.Room;
-import androidx.room.migration.Migration;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -19,13 +13,11 @@ import com.tanya.dvtweatherapp.data.local.WeatherDatabase;
 import com.tanya.dvtweatherapp.data.local.dao.WeatherDao;
 import com.tanya.dvtweatherapp.utils.Constants;
 import com.tanya.dvtweatherapp.utils.LiveDataCallAdapterFactory;
-import com.tanya.dvtweatherapp.utils.NetworkUtil;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;

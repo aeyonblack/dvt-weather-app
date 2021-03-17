@@ -8,17 +8,13 @@ import com.tanya.dvtweatherapp.data.local.dao.WeatherDao;
 import com.tanya.dvtweatherapp.data.remote.WeatherApi;
 import com.tanya.dvtweatherapp.models.CurrentWeather;
 import com.tanya.dvtweatherapp.models.FavouriteLocation;
+import com.tanya.dvtweatherapp.models.Forecast;
 import com.tanya.dvtweatherapp.network.ApiResponse;
 import com.tanya.dvtweatherapp.utils.AppExecutors;
 
 import java.util.List;
 
 import javax.inject.Inject;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class WeatherRepository {
 
@@ -66,6 +62,34 @@ public class WeatherRepository {
         .getAsLiveData();
     }
 
+    public LiveData<Resource<Forecast>> getWeatherForecast(int id, boolean isConnected) {
+        return new NetworkBoundResource<Forecast, Forecast>(AppExecutors.getInstance()) {
+
+            @Override
+            protected void saveCallResult(@NonNull Forecast item) {
+                weatherDao.saveWeatherForecast(item);
+            }
+
+            @Override
+            protected boolean shouldFetch(@Nullable Forecast forecast) {
+                return isConnected;
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<Forecast> loadFromDb() {
+                return weatherDao.loadWeatherForecast(id);
+            }
+
+            @NonNull
+            @Override
+            protected LiveData<ApiResponse<Forecast>> createCall() {
+                return weatherApi.getFiveDayForecast(id);
+            }
+        }
+        .getAsLiveData();
+    }
+
     public void saveWeatherLocation(CurrentWeather currentWeather) {
         FavouriteLocation location = new FavouriteLocation();
         location.setLocationId(currentWeather.getCurrentWeatherId());
@@ -77,10 +101,6 @@ public class WeatherRepository {
 
     public LiveData<List<FavouriteLocation>> getFavouriteLocations() {
         return weatherDao.loadFavouriteLocations();
-    }
-
-    public String getMsg() {
-        return msg;
     }
 
 }

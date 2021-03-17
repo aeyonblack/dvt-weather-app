@@ -14,7 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.tanya.dvtweatherapp.R;
+import com.tanya.dvtweatherapp.utils.NetworkUtil;
 import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -47,24 +50,29 @@ public class ForecastFragment extends DaggerFragment {
 
         viewModel = new ViewModelProvider(this, providerFactory).get(ForecastViewModel.class);
 
-        //setupRecyclerView();
+        setupRecyclerView();
 
-        //subscribeObservers();
-
-        //viewModel.getWeatherForecast(1020098);
+        subscribeObservers();
 
     }
 
     private void subscribeObservers() {
-        viewModel.observeForecast().observe(getViewLifecycleOwner(), forecastResource -> {
+        viewModel.getWeatherForecast(1020098, NetworkUtil
+                .isConnected(Objects.requireNonNull(getActivity())))
+                .observe(getViewLifecycleOwner(), forecastResource -> {
             if (forecastResource != null) {
                 switch (forecastResource.status) {
                     case LOADING:
                         toast("Loading");
                         break;
                     case SUCCESS:
-                        toast("Success");
-                        adapter.setWeatherForecast(forecastResource.data.getList());
+                        if (forecastResource.data != null) {
+                            toast("Forecast Success");
+                            adapter.setWeatherForecast(forecastResource.data.getList());
+                        }
+                        else {
+                            toast("Forecast null");
+                        }
                         break;
                     case ERROR:
                         toast("Error: " + forecastResource.message);

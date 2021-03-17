@@ -25,6 +25,11 @@ public class WeatherList {
     @ColumnInfo(name = "date")
     private long dt;
 
+    @SerializedName("dt_txt")
+    @Expose
+    @ColumnInfo(name = "dt_txt")
+    private String dtTxt;
+
     @SerializedName("main")
     @Expose
     @Embedded
@@ -33,7 +38,6 @@ public class WeatherList {
     @SerializedName("weather")
     @Expose
     @ColumnInfo(name = "weather")
-    // TODO: Add list type converter
     private List<Weather> weather;
 
     @Ignore
@@ -41,8 +45,9 @@ public class WeatherList {
         // Default empty constructor
     }
 
-    public WeatherList(long dt, Main main, List<Weather> weather) {
+    public WeatherList(long dt, String dtTxt, Main main, List<Weather> weather) {
         this.dt = dt;
+        this.dtTxt = dtTxt;
         this.main = main;
         this.weather = weather;
     }
@@ -61,6 +66,14 @@ public class WeatherList {
 
     public void setDt(long dt) {
         this.dt = dt;
+    }
+
+    public String getDtTxt() {
+        return dtTxt;
+    }
+
+    public void setDtTxt(String dtTxt) {
+        this.dtTxt = dtTxt;
     }
 
     public Main getMain() {

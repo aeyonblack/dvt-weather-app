@@ -54,7 +54,6 @@ public class CurrentWeather {
     @SerializedName("weather")
     @Expose
     @ColumnInfo(name = "weather")
-    //TODO: Add list converter
     private List<Weather> weather;
 
     private String errorMessage;

@@ -163,12 +163,14 @@ public class MainActivity extends DaggerAppCompatActivity implements
     }
 
     private void hideSplashScreen() {
-        new Handler().postDelayed(() -> {
-            appBarLayout.setVisibility(View.VISIBLE);
-            viewPager.setVisibility(View.VISIBLE);
-            splashScreen.setVisibility(View.GONE);
-            setStatusBarTranslucent();
-        }, 1000);
+        if (splashScreen.getVisibility() == View.VISIBLE) {
+            new Handler().postDelayed(() -> {
+                appBarLayout.setVisibility(View.VISIBLE);
+                viewPager.setVisibility(View.VISIBLE);
+                splashScreen.setVisibility(View.GONE);
+                setStatusBarTranslucent();
+            }, 1000);
+        }
     }
 
     /*END - Support methods*/

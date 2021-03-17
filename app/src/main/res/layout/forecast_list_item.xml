@@ -1,28 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    app:contentPaddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/date_forecast"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Today"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/weather_condition_forecast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mostly sunny"/>
+        <TextView
+            android:id="@+id/date_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/black"/>
 
-    <TextView
-        android:id="@+id/temp_forecast"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="21.5 degrees"/>
+        <TextView
+            android:id="@+id/weather_condition_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/date_forecast"
+            android:layout_marginStart="16dp"
+            android:text="Mostly cloudy"/>
+
+        <TextView
+            android:id="@+id/temp_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="24sp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="@font/comfortaa_medium"
+            android:text="25\u00B0"/>
+
+        <TextView
+            android:id="@+id/min_temp_forecast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/temp_forecast"
+            android:textColor="@color/black"
+            android:text="15\u00B0"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/weather_icon_forecast"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_toStartOf="@id/temp_forecast"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/strong_tstorms_light_color_96dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/weather_icon_forecast"
+            android:layout_marginTop="8dp"
+            android:background="#e6e6e6"/>
+
+    </RelativeLayout>
 
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
