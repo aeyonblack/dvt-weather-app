@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
@@ -21,8 +22,13 @@ public class LocationsFragment extends DaggerFragment {
 
     private LocationsViewModel viewModel;
 
+    private RecyclerView locationsList;
+
     @Inject
     ViewModelProviderFactory providerFactory;
+
+    @Inject
+    LocationsRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +40,13 @@ public class LocationsFragment extends DaggerFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        locationsList = view.findViewById(R.id.location_list);
+
         viewModel = new ViewModelProvider(this, providerFactory).get(LocationsViewModel.class);
+
+        setupRecyclerView();
+
         subscribeObservers();
     }
 
@@ -42,12 +54,14 @@ public class LocationsFragment extends DaggerFragment {
         viewModel.getFavouriteLocations().observe(getViewLifecycleOwner(), favouriteLocations -> {
             if (favouriteLocations != null) {
                 // Do something
+                adapter.setFavouriteLocations(favouriteLocations);
             }
         });
     }
 
-    private void toast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    private void setupRecyclerView() {
+        locationsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        locationsList.setAdapter(adapter);
     }
 
 }
