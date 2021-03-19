@@ -2,7 +2,6 @@ package com.tanya.dvtweatherapp.data.local.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -31,7 +30,7 @@ public interface WeatherDao {
     LiveData<CurrentWeather> loadCurrentWeather(String cityName);
 
     // Load using geographic coordinates
-    @Query("SELECT * FROM current_weather WHERE lat = :lat AND lon = :lon")
+    @Query("SELECT * FROM current_weather WHERE ROUND(lat, 2) = ROUND(:lat, 2) AND ROUND(lon, 2) = ROUND(:lon, 2)")
     LiveData<CurrentWeather> loadCurrentWeather(double lat, double lon);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -48,26 +47,32 @@ public interface WeatherDao {
     LiveData<Forecast> loadWeatherForecast(String cityName);
 
     // Load using geographic coordinates
-    @Query("SELECT * FROM weather_forecast WHERE lat = :lat AND lon = :lon")
+    @Query("SELECT * FROM weather_forecast WHERE ROUND(lat, 2) = ROUND(:lat, 2) AND ROUND(lon, 2) = ROUND(:lon, 2)")
     LiveData<Forecast> loadWeatherForecast(double lat, double lon);
 
+    // Save weather forecast
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveWeatherForecast(Forecast forecast);
 
+    // delete forecast with matching id
     @Query("DELETE FROM weather_forecast WHERE cityId = :id")
     void deleteOldForecast(int id);
 
+    // delete forecast with matching city name
     @Query("DELETE FROM weather_forecast WHERE name = :cityName")
     void deleteOldForecast(String cityName);
 
-    @Query("DELETE FROM weather_forecast WHERE lat = :lat AND lon = :lon")
+    // delete forecast with matching coordinates
+    @Query("DELETE FROM weather_forecast WHERE ROUND(lat, 2) = ROUND(:lat, 2) AND ROUND(lon, 2) = ROUND(:lon, 2)")
     void deleteOldForecast(double lat, double lon);
 
     /*Favourite locations data*/
 
+    // Get List of all favourite locations
     @Query("SELECT * FROM favourite_locations")
     LiveData<List<FavouriteLocation>> loadFavouriteLocations();
 
+    // Save a location as favourite
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveLocationAsFavourite(FavouriteLocation location);
 

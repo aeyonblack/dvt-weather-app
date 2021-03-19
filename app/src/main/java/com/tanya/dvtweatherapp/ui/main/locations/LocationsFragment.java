@@ -47,13 +47,14 @@ public class LocationsFragment extends DaggerFragment {
 
         setupRecyclerView();
 
+        // Listen for changes on the list of favourite locations
+        // and update UI accordingly
         subscribeObservers();
     }
 
     private void subscribeObservers() {
         viewModel.getFavouriteLocations().observe(getViewLifecycleOwner(), favouriteLocations -> {
             if (favouriteLocations != null) {
-                // Do something
                 adapter.setFavouriteLocations(favouriteLocations);
             }
         });

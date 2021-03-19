@@ -36,6 +36,9 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
         weatherIconView = itemView.findViewById(R.id.weather_icon_forecast);
     }
 
+    /**
+     * Binds views to data
+     */
     @SuppressLint("SetTextI18n")
     public void bind(List<WeatherList> weatherList, int position, Context context) {
 
@@ -61,6 +64,14 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
 
     }
 
+    /**
+     * OpenWeatherMap/Forecast5 returns a weather list with multiple entries for
+     * each day at differing times.
+     * The goal is to get a list with single entries for each day, meaning we target
+     * a single time instance in this case "12:00:00"
+     * This method finds the index or position of a list item with some date and
+     * time = "12:00:00" hence returning unique entries
+     */
     private int getDatePosition(String date, List<WeatherList> weatherList) {
         int index = 0;
         for (int i = 0; i < weatherList.size(); i++) {

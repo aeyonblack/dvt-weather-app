@@ -17,4 +17,16 @@ public class Constants {
     // write timeout in seconds
     public static final int WRITE_TIMEOUT = 2;
 
+    // time until next update
+    public static final long LOCATION_UPDATE_INTERVAL = 1000000000;
+
+    // time until next update cannot be less than this
+    public static final long FASTEST_UPDATE_INTERVAL = LOCATION_UPDATE_INTERVAL/2;
+
+    // for requesting permissions
+    public static final int LOCATION_REQUEST_CODE = 2021;
+
+    // used to start dialog when user location is off
+    public static final int REQUEST_CHECK_SETTINGS = 0x1;
+
 }

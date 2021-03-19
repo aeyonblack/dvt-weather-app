@@ -22,7 +22,7 @@ import com.tanya.dvtweatherapp.models.CurrentWeather;
 import com.tanya.dvtweatherapp.ui.main.MainViewModel;
 import com.tanya.dvtweatherapp.utils.DateFormatter;
 import com.tanya.dvtweatherapp.utils.NetworkUtil;
-import com.tanya.dvtweatherapp.utils.ToastUtil;
+import com.tanya.dvtweatherapp.utils.Util;
 import com.tanya.dvtweatherapp.utils.WeatherIconManager;
 import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
 
@@ -84,6 +84,8 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /*Setup views*/
+
         mainTemperatureView = view.findViewById(R.id.current_temp);
         maxMinTemperatureView = view.findViewById(R.id.temp_min_max);
         feelsLikeView = view.findViewById(R.id.feels_like);
@@ -109,29 +111,44 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
         mainViewModel = new ViewModelProvider(requireActivity(), providerFactory).get(MainViewModel.class);
 
-        // Load weather data as soon as view is created
-        subscribeObservers();
+        // Load weather data for current location
+        // as soon as view is created
+        observeLocation();
 
+        // Observe changes on the search query
         subscribeToMain();
-
 
     }
 
     /**
+     * Observe the current device location
+     */
+    private void observeLocation() {
+        mainViewModel.getCoordinates().observe(getViewLifecycleOwner(), coordinates -> {
+            if (coordinates != null) {
+                subscribeObservers(coordinates);
+            }
+        });
+    }
+
+    /**
      * Observe changes on the weather data
+     * for current device location
      */
     @SuppressLint("SetTextI18n")
-    private void subscribeObservers() {
-        viewModel.getCurrentWeather(1020098, NetworkUtil
+    private void subscribeObservers(double[] coordinates) {
+        viewModel.getCurrentWeather(coordinates, NetworkUtil
                 .isConnected(Objects.requireNonNull(getActivity())))
                 .observe(getViewLifecycleOwner(), currentWeatherResource -> {
             if (currentWeatherResource != null) {
                 switch (currentWeatherResource.status) {
                     case LOADING:
                         if (swipeRefreshLayout.isRefreshing()) {
+                            // Tells MainActivity not to show Splash Screen
                             weatherLoadedListener.onLoad(LoadStatus.REFRESHING);
                         }
                         else {
+                            // Tells MainActivity to show Splash Screen
                             weatherLoadedListener.onLoad(LoadStatus.LOADING);
                         }
                         break;
@@ -148,6 +165,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                         }
                         break;
                     case ERROR:
+                        Util.toast(getActivity(), "Error: " + currentWeatherResource.message);
                         weatherLoadedListener.onLoad(LoadStatus.ERROR);
                         break;
                 }
@@ -155,6 +173,10 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         });
     }
 
+    /**
+     * Observe changes on the search query
+     * and get current weather
+     */
     private void subscribeToMain() {
         mainViewModel.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
             if (s != null) {
@@ -163,6 +185,9 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         });
     }
 
+    /**
+     * Get current weather for specified location
+     */
     private void getCurrentWeather(String cityName) {
         viewModel.getCurrentWeather(cityName, NetworkUtil
                 .isConnected(Objects.requireNonNull(getActivity())))
@@ -191,7 +216,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.save_location_button) {
-            ToastUtil.toast(getActivity(), "Location saved");
+            Util.toast(getActivity(), "Location saved");
             viewModel.saveWeatherLocation(currentWeather);
         }
     }
@@ -239,6 +264,9 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
     }
 
+    /**
+     * Change background based on weather condition
+     */
     @SuppressLint("UseCompatLoadingForDrawables")
     private void changeBackground(String weatherCondition) {
         switch (weatherCondition) {
@@ -259,8 +287,8 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
 
     @Override
     public void onRefresh() {
-        ToastUtil.toast(getActivity(), "Refreshing");
-        subscribeObservers();
+        Util.toast(getActivity(), "Refreshing");
+        weatherLoadedListener.onLoad(LoadStatus.SWIPE_REFRESH); // Set new search query to whatever the toolbar says
     }
 
     private void stopRefreshing() {
@@ -280,7 +308,8 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         LOADING,
         SUCCESS,
         REFRESHING,
-        ERROR
+        ERROR,
+        SWIPE_REFRESH // Tells MainActivity to change search query
     }
 
 }

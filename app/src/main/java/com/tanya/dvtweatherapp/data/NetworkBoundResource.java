@@ -26,6 +26,12 @@ public abstract class NetworkBoundResource<CachedData, RequestData> {
         init();
     }
 
+    /**
+     * This is where the app decides weather to query updated data from
+     * the API (internet) or to retrieve locally stored data.
+     * API requests are made when the device has an internet connection, otherwise
+     * persisted data is used
+     */
     private void init() {
 
         result.setValue(Resource.loading(null));
@@ -35,7 +41,7 @@ public abstract class NetworkBoundResource<CachedData, RequestData> {
         result.addSource(dbSource, cachedData -> {
             result.removeSource(dbSource);
             if (shouldFetch(cachedData)) {
-                fetchFromNetwork(dbSource);
+                fetchFromNetwork(dbSource); // make an api request
             }
             else {
                 result.addSource(dbSource, cachedData1 -> setValue(Resource.success(cachedData1)));

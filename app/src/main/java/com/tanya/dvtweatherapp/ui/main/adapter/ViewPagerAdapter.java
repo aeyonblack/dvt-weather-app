@@ -12,6 +12,9 @@ import com.tanya.dvtweatherapp.ui.main.forecast.ForecastFragment;
 import com.tanya.dvtweatherapp.ui.main.locations.LocationsFragment;
 import com.tanya.dvtweatherapp.ui.main.today.TodayFragment;
 
+/**
+ * Fragment adapter for TabLayout fragments and ViewPager
+ */
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {

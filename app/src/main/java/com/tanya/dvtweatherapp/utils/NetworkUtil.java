@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.util.Objects;
+
 /**
  * Checks internet connectivity
  */
@@ -17,9 +19,10 @@ public class NetworkUtil {
     public static boolean isConnected(Context context) {
         ConnectivityManager manager = (ConnectivityManager)context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-        return manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() ==
-                NetworkInfo.State.CONNECTED || manager
-                .getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        return Objects.requireNonNull(manager.getNetworkInfo(ConnectivityManager
+                .TYPE_MOBILE)).getState() ==
+                NetworkInfo.State.CONNECTED || Objects.requireNonNull(manager
+                .getNetworkInfo(ConnectivityManager.TYPE_WIFI))
                 .getState() == NetworkInfo.State.CONNECTED;
     }
 

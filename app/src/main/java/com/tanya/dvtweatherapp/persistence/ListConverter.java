@@ -11,6 +11,9 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Handles conversion from Json to list and vice versa
+ */
 public class ListConverter {
 
     @TypeConverter

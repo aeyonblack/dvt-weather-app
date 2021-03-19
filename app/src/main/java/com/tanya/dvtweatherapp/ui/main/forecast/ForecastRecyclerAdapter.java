@@ -14,6 +14,9 @@ import com.tanya.dvtweatherapp.models.WeatherList;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Basic Adapter class
+ */
 public class ForecastRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<WeatherList> weatherForecast = new ArrayList<>();

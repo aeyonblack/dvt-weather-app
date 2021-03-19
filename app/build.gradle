@@ -34,10 +34,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    def location_version = "18.0.0"
+    implementation "com.google.android.gms:play-services-location:$location_version"
+
     //Material Search bar
     implementation 'com.github.mancj:MaterialSearchbar:0.8.5'
     implementation 'com.github.Ferfalk:SimpleSearchView:0.1.6'
-
 
     //Glide
     def glide_version = "4.9.0"

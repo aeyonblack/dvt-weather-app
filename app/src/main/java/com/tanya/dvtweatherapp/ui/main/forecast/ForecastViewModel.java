@@ -16,7 +16,7 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Performs query for the 5 day forecast weather data
+ * Gets data from repository and passes it to forecast fragment
  */
 public class ForecastViewModel extends ViewModel {
 
@@ -33,6 +33,10 @@ public class ForecastViewModel extends ViewModel {
 
     public LiveData<Resource<Forecast>> getWeatherForecast(String cityName, boolean connected) {
         return weatherRepository.getWeatherForecast(cityName, connected);
+    }
+
+    public LiveData<Resource<Forecast>> getWeatherForecast(double[] coordinates, boolean connected) {
+        return weatherRepository.getWeatherForecast(coordinates, connected);
     }
 
 }

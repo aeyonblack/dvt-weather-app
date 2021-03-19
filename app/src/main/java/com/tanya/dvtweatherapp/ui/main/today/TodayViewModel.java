@@ -28,6 +28,10 @@ public class TodayViewModel extends ViewModel {
         return weatherRepository.getCurrentWeather(cityName, isConnected);
     }
 
+    public LiveData<Resource<CurrentWeather>> getCurrentWeather(double[] coordinates, boolean isConnected) {
+        return weatherRepository.getCurrentWeather(coordinates, isConnected);
+    }
+
     public void saveWeatherLocation(CurrentWeather currentWeather) {
         weatherRepository.saveWeatherLocation(currentWeather);
     }

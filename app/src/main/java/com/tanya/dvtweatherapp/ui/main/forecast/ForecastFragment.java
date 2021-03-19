@@ -16,7 +16,7 @@ import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.data.Resource;
 import com.tanya.dvtweatherapp.ui.main.MainViewModel;
 import com.tanya.dvtweatherapp.utils.NetworkUtil;
-import com.tanya.dvtweatherapp.utils.ToastUtil;
+import com.tanya.dvtweatherapp.utils.Util;
 import com.tanya.dvtweatherapp.viewmodel.ViewModelProviderFactory;
 
 import java.util.Objects;
@@ -27,15 +27,21 @@ import dagger.android.support.DaggerFragment;
 
 public class ForecastFragment extends DaggerFragment {
 
+    /*Dependency Injection*/
+
     @Inject
     ViewModelProviderFactory providerFactory;
 
     @Inject
     ForecastRecyclerAdapter adapter;
 
+    /*ViewModels*/
+
     private ForecastViewModel viewModel;
 
     private MainViewModel mainViewModel;
+
+    /*Views*/
 
     private RecyclerView forecastList;
 
@@ -53,22 +59,42 @@ public class ForecastFragment extends DaggerFragment {
         super.onViewCreated(view, savedInstanceState);
 
         forecastList = view.findViewById(R.id.forecast_list);
+
         progressBar = view.findViewById(R.id.progress_bar);
 
         viewModel = new ViewModelProvider(this, providerFactory).get(ForecastViewModel.class);
 
         mainViewModel = new ViewModelProvider(requireActivity(), providerFactory).get(MainViewModel.class);
 
+        // Setup recycler with adapters and layout manager
         setupRecyclerView();
 
-        subscribeObservers();
+        // Listen for changes on the device location
+        observeLocation();
 
+        // Listen for changes on the search query
         subscribeToMain();
 
     }
 
-    private void subscribeObservers() {
-        viewModel.getWeatherForecast(1020098, NetworkUtil
+    /**
+     * Listen for changes on the device location and get coordinates
+     */
+    private void observeLocation() {
+        mainViewModel.getCoordinates().observe(getViewLifecycleOwner(), coordinates -> {
+            if (coordinates != null) {
+                subscribeObservers(coordinates);
+            }
+        });
+    }
+
+    /**
+     * Query weather data for the current location
+     * using it's coordinates
+     * @param coordinates - current location coordinates
+     */
+    private void subscribeObservers(double[] coordinates) {
+        viewModel.getWeatherForecast(coordinates, NetworkUtil
                 .isConnected(Objects.requireNonNull(getActivity())))
                 .observe(getViewLifecycleOwner(), forecastResource -> {
             if (forecastResource != null) {
@@ -84,13 +110,19 @@ public class ForecastFragment extends DaggerFragment {
                         break;
                     case ERROR:
                         progressBar.setVisibility(View.GONE);
-                        ToastUtil.toast(getActivity(), "Error: " + forecastResource.message);
+                        Util.toast(getActivity(), "Error: " + forecastResource.message);
                         break;
                 }
             }
         });
     }
 
+    /**
+     * Listen for changes on the search query
+     * It has dual use cases!
+     * A search query changes when the user actually searches
+     * for a city name or when the user triggers a swipe to refresh action
+     */
     private void subscribeToMain() {
         mainViewModel.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
             if (s != null) {
@@ -99,6 +131,10 @@ public class ForecastFragment extends DaggerFragment {
         });
     }
 
+    /**
+     * Get the five day weather forecast for specified city
+     * @param cityName - name of city whose weather we are querying
+     */
     private void getWeatherForecast(String cityName) {
         viewModel.getWeatherForecast(cityName, connected()).observe(getViewLifecycleOwner(),
                 forecastResource -> {
@@ -109,11 +145,13 @@ public class ForecastFragment extends DaggerFragment {
                     }
                 }
                 else if (forecastResource.status == Resource.Status.ERROR) {
-                    ToastUtil.toast(getActivity(), "Error: " + forecastResource.message);
+                    Util.toast(getActivity(), "Error: " + forecastResource.message);
                 }
             }
         });
     }
+
+    /*--- SUPPORT METHODS ----*/
 
     private void setupRecyclerView() {
         forecastList.setLayoutManager(new LinearLayoutManager(getActivity()));

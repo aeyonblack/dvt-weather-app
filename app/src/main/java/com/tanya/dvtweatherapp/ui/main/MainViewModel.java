@@ -6,16 +6,18 @@ import androidx.lifecycle.ViewModel;
 
 import javax.inject.Inject;
 
+/**
+ * Pass data from MainActivity to child fragments
+ */
 public class MainViewModel extends ViewModel {
 
     private final MutableLiveData<String> searchQuery = new MutableLiveData<>();
 
-    private final String msg;
+    private final MutableLiveData<double[]> coordinates = new MutableLiveData<>();
 
     @Inject
-    public MainViewModel(String msg) {
+    public MainViewModel() {
         // Default constructor
-        this.msg = msg;
     }
 
     public void setSearchQuery(String searchQuery) {
@@ -26,8 +28,12 @@ public class MainViewModel extends ViewModel {
         return searchQuery;
     }
 
-    public String getMsg() {
-        return msg;
+    public void setCoordinates(double[] coordinates) {
+        this.coordinates.setValue(coordinates);
+    }
+
+    public LiveData<double[]> getCoordinates() {
+        return coordinates;
     }
 
 }

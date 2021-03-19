@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+/**
+ * Passes data from repository to LocationsFragment
+ */
 public class LocationsViewModel extends ViewModel {
 
     private final WeatherRepository weatherRepository;
