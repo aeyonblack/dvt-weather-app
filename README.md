@@ -23,14 +23,14 @@
 </div>
 
 # Technologies and Libraries used
-* ## Retrofit for network requests
-* ## Room for offline persitence (data caching) 
-* ## Dagger for dependency injection (the D in SOLID)
-* ## LiveData for implementing an observer pattern 
-* ## Google Play Services for Live location updates
-* ## OKhttp3 for network requests
-* ## Glide for image loading 
-* ## SearchView 
+* ### Retrofit for network requests
+* ### Room for offline persitence (data caching) 
+* ### Dagger for dependency injection (the D in SOLID)
+* ### LiveData for implementing an observer pattern 
+* ### Google Play Services for Live location updates
+* ### OKhttp3 for network requests
+* ### Glide for image loading 
+* ### SearchView 
 
 # Key take-aways 
 * ### Dependency Injection, LiveData and MVVM are superpowers!
@@ -39,7 +39,7 @@
 * ### Using an architecture and design patterns simplifies the whole development process
 
 # What I could Improve
-## I could:
+### I could...
 * ### write unit tests for every major feature of the app using JUnit and Mockito
 * ### unit test the user interface using expresso
 * ### extend the app to use RxJava for threading to reduce boilerplate (I love RxJava)
