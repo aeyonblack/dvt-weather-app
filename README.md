@@ -14,6 +14,9 @@
 # Screenshots 
 
 <div align = "center">
-  <img src = "https://github.com/Urdzik/MovieApp/blob/master/readme/Screenshot_1582798408_framed.png?raw=true" width="330">
+  <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/one_weather.png?raw=true" width="300">
+  <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/two_weather.png?raw=true" width="300">
+  <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/three_weather.png?raw=true" width="300">
+  <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/four_weather.png?raw=true" width="300">
 </div>
   
