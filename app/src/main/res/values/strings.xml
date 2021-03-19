@@ -7,4 +7,6 @@
     <string name="weather_icon">Weather icon</string>
     <string name="max_min_paceholder">Max 26°↑ · Min 19°↓</string>
     <string name="the_app_logo">The app logo</string>
+    <string name="search">Search</string>
+    <string name="map">Map</string>
 </resources>

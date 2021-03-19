@@ -35,7 +35,7 @@ public class MainModule {
 
     @Provides
     static String provideMsg() {
-        return "Test";
+        return "MainActivity: ViewModel working from here";
     }
 
 }

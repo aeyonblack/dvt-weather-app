@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.RequestManager;
 import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.models.CurrentWeather;
+import com.tanya.dvtweatherapp.ui.main.MainViewModel;
 import com.tanya.dvtweatherapp.utils.DateFormatter;
 import com.tanya.dvtweatherapp.utils.NetworkUtil;
 import com.tanya.dvtweatherapp.utils.ToastUtil;
@@ -37,6 +38,7 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
     /*Objects*/
 
     private TodayViewModel viewModel;
+    private MainViewModel mainViewModel;
     private CurrentWeather currentWeather;
 
     /*Dependency Injection*/
@@ -105,9 +107,13 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
         saveLocationButton.setOnClickListener(this);
 
         viewModel = new ViewModelProvider(this, providerFactory).get(TodayViewModel.class);
+        mainViewModel = new ViewModelProvider(requireActivity(), providerFactory).get(MainViewModel.class);
 
         // Load weather data as soon as view is created
         subscribeObservers();
+
+        subscribeToMain();
+
 
     }
 
@@ -122,7 +128,6 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
             if (currentWeatherResource != null) {
                 switch (currentWeatherResource.status) {
                     case LOADING:
-                        //toast("Loading");
                         if (swipeRefreshLayout.isRefreshing()) {
                             weatherLoadedListener.onLoad(LoadStatus.REFRESHING);
                         }
@@ -131,7 +136,6 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                         }
                         break;
                     case SUCCESS:
-                        //toast("Success");
                         weatherLoadedListener.onLoad(LoadStatus.SUCCESS);
                         if (currentWeatherResource.data != null) {
                             weatherLoadedListener.onWeatherLoaded(currentWeatherResource.data);
@@ -144,12 +148,44 @@ public class TodayFragment extends DaggerFragment implements View.OnClickListene
                         }
                         break;
                     case ERROR:
-                        //toast("Error " + currentWeatherResource.message);
                         weatherLoadedListener.onLoad(LoadStatus.ERROR);
                         break;
                 }
             }
         });
+    }
+
+    private void subscribeToMain() {
+        mainViewModel.getSearchQuery().observe(getViewLifecycleOwner(), s -> {
+            if (s != null) {
+                getCurrentWeather(s);
+            }
+        });
+    }
+
+    private void getCurrentWeather(String cityName) {
+        viewModel.getCurrentWeather(cityName, NetworkUtil
+                .isConnected(Objects.requireNonNull(getActivity())))
+                .observe(getViewLifecycleOwner(), currentWeatherResource -> {
+                    if (currentWeatherResource != null) {
+                        switch (currentWeatherResource.status) {
+                            case LOADING:
+                                weatherLoadedListener.onLoad(LoadStatus.REFRESHING);
+                                break;
+                            case SUCCESS:
+                                weatherLoadedListener.onLoad(LoadStatus.SUCCESS);
+                                if (currentWeatherResource.data != null) {
+                                    weatherLoadedListener.onWeatherLoaded(currentWeatherResource.data);
+                                    displayWeatherData(currentWeatherResource.data);
+                                    currentWeather = currentWeatherResource.data;
+                                }
+                                break;
+                            case ERROR:
+                                weatherLoadedListener.onLoad(LoadStatus.ERROR);
+                                break;
+                        }
+                    }
+                });
     }
 
     @Override

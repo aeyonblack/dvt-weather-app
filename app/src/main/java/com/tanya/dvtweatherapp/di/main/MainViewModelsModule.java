@@ -3,6 +3,7 @@ package com.tanya.dvtweatherapp.di.main;
 import androidx.lifecycle.ViewModel;
 
 import com.tanya.dvtweatherapp.di.ViewModelKey;
+import com.tanya.dvtweatherapp.ui.main.MainViewModel;
 import com.tanya.dvtweatherapp.ui.main.forecast.ForecastViewModel;
 import com.tanya.dvtweatherapp.ui.main.locations.LocationsViewModel;
 import com.tanya.dvtweatherapp.ui.main.today.TodayViewModel;
@@ -28,5 +29,10 @@ public abstract class MainViewModelsModule {
     @IntoMap
     @ViewModelKey(LocationsViewModel.class)
     public abstract ViewModel bindLocationsViewModel(LocationsViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainViewModel.class)
+    public abstract ViewModel bindMainViewModel(MainViewModel viewModel);
 
 }

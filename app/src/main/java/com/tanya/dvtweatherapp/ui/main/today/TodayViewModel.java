@@ -18,8 +18,14 @@ public class TodayViewModel extends ViewModel {
         this.weatherRepository = weatherRepository;
     }
 
+    // Get current weather using city id
     public LiveData<Resource<CurrentWeather>> getCurrentWeather(int id, boolean isConnected) {
         return weatherRepository.getCurrentWeather(id, isConnected);
+    }
+
+    // Get current weather using city name
+    public LiveData<Resource<CurrentWeather>> getCurrentWeather(String cityName, boolean isConnected) {
+        return weatherRepository.getCurrentWeather(cityName, isConnected);
     }
 
     public void saveWeatherLocation(CurrentWeather currentWeather) {

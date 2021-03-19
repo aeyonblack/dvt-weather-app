@@ -10,16 +10,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.tanya.dvtweatherapp.R;
 import com.tanya.dvtweatherapp.models.WeatherList;
 import com.tanya.dvtweatherapp.utils.DateFormatter;
-import com.tanya.dvtweatherapp.utils.ToastUtil;
 import com.tanya.dvtweatherapp.utils.WeatherIconManager;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class ForecastViewHolder extends RecyclerView.ViewHolder {
 
@@ -49,8 +45,6 @@ public class ForecastViewHolder extends RecyclerView.ViewHolder {
         dateTextView.setText(date[1]);
 
         int i = getDatePosition(date[0] + " 12:00:00", weatherList);
-
-        //dateTextView.setText("Index: " + i);
 
         weatherConditionTextView.setText(weatherList.get(i).getWeather().get(0).getDescription());
 

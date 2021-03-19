@@ -36,6 +36,8 @@ dependencies {
 
     //Material Search bar
     implementation 'com.github.mancj:MaterialSearchbar:0.8.5'
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.1.6'
+
 
     //Glide
     def glide_version = "4.9.0"

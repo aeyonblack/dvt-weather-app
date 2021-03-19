@@ -33,6 +33,11 @@ public class DateFormatter {
         return date;
     }
 
+    public static String getDay(Long time, int dayCount) {
+        String date = (String)DateFormat.format("yyyy-MM-dd HH:mm:ss", time);
+        return getDayOfWeek(date, dayCount);
+    }
+
     /**
      * Return the actual day of month e.g 15th (of March)
      */

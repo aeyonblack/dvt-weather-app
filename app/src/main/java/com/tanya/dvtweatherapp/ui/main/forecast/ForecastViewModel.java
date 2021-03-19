@@ -31,4 +31,8 @@ public class ForecastViewModel extends ViewModel {
         return weatherRepository.getWeatherForecast(id, isConnected);
     }
 
+    public LiveData<Resource<Forecast>> getWeatherForecast(String cityName, boolean connected) {
+        return weatherRepository.getWeatherForecast(cityName, connected);
+    }
+
 }

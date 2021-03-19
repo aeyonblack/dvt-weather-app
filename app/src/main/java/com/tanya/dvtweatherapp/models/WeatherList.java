@@ -40,16 +40,20 @@ public class WeatherList {
     @ColumnInfo(name = "weather")
     private List<Weather> weather;
 
+    @ColumnInfo(name = "forecast_time_stamp")
+    private long timeStamp;
+
     @Ignore
     public WeatherList() {
         // Default empty constructor
     }
 
-    public WeatherList(long dt, String dtTxt, Main main, List<Weather> weather) {
+    public WeatherList(long dt, String dtTxt, Main main, List<Weather> weather, long timeStamp) {
         this.dt = dt;
         this.dtTxt = dtTxt;
         this.main = main;
         this.weather = weather;
+        this.timeStamp = timeStamp;
     }
 
     public long getWeatherListId() {
@@ -90,6 +94,14 @@ public class WeatherList {
 
     public void setWeather(List<Weather> weather) {
         this.weather = weather;
+    }
+
+    public long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
 }
