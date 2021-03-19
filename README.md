@@ -10,6 +10,20 @@
  
 * ### ___ViewModel___
   I used four ViewModels. Three for sending data between model (weatherRepository) and views (fragments) and one for sending data from MainActvity to child fragments. 
+  
+# How to Run
+* ### Install the APK
+* ### Make sure you have internet access
+* ### Turn on location
+* ### Grant location permissions otherwise app will not function properly
+* ### Observe weather for your current location
+* ### Search for other locations and observe their current weather and daily forecast 
+* ### Save locations as favourites 
+* ### Test persistency by closing the app, turning off your internet connection and reopening the app
+* ### Weather data for your current location should be saved and you should be able to see the time since last update in black
+* ### With your mobile data still off, you can also search for locations you previously searched with your mobile data on. 
+* ### For instance, if you searched for London with your mobile data on, you should be able to still search for London with mobile data off and get results because all queries are persisted.
+* ### That's it
 
 # Screenshots 
 
