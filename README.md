@@ -18,5 +18,7 @@
   <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/two_weather.png?raw=true" width="300">
   <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/three_weather.png?raw=true" width="300">
   <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/four_weather.png?raw=true" width="300">
+  <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/five_weather.png?raw=true" width="300">
+  <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/six_weather.png?raw=true" width="300">
 </div>
   
