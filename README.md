@@ -21,4 +21,29 @@
   <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/five_weather.png?raw=true" width="300">
   <img src = "https://github.com/aeyonblack/dvt-weather-app/blob/master/app/src/main/assets/six_weather.png?raw=true" width="300">
 </div>
-  
+
+# Technologies and Libraries used
+* ## Retrofit for network requests
+* ## Room for offline persitence (data caching) 
+* ## Dagger for dependency injection (the D in SOLID)
+* ## LiveData for implementing an observer pattern 
+* ## Google Play Services for Live location updates
+* ## OKhttp3 for network requests
+* ## Glide for image loading 
+* ## SearchView 
+
+# Key take-aways 
+* ### Dependency Injection, LiveData and MVVM are superpowers!
+* ### TDD and Unit testing are inevitable (I feel bad for not implementing them here)
+* ### Agile development allows for more freedom and flexibility as opposed to the Waterfall model 
+* ### Using an architecture and design patterns simplifies the whole development process
+
+# What I could Improve
+## I could:
+* ### write unit tests for every major feature of the app using JUnit and Mockito
+* ### unit test the user interface using expresso
+* ### extend the app to use RxJava for threading to reduce boilerplate (I love RxJava)
+* ### decouple location finding logic from MainAcitivity
+* ### add google maps and places api (couldn't do this because bank account keeps on getting declined, maps and places require a billing account)
+* ### use Jenkins for CI/CD (I plan on learning this)
+* ### perhaps rewrite the whole app in Kotlin
