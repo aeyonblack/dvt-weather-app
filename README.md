@@ -14,6 +14,6 @@
 # Screenshots 
 
 <div align = "center">
-  
+  <img src = "https://github.com/Urdzik/MovieApp/blob/master/readme/Screenshot_1582798408_framed.png?raw=true" width="330">
 </div>
   
